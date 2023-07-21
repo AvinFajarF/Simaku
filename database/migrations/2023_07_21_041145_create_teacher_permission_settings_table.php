@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('teacher_permission_settings', function (Blueprint $table) {
             $table->id();
+            $table->string("day");
+            $table->string("class");
+            $table->string("at_hour");
             $table->timestamps();
         });
     }
