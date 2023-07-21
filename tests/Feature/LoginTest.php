@@ -13,7 +13,7 @@ class LoginTest extends TestCase
      */
     public function test_login(): void
     {
-        $response = $this->postJson('/api/v1/login', ['username' => 'root', "password" => "password"]);
+        $response = $this->postJson('/api/v1/login', ['username' => 'user', "password" => "password"]);
 
         $response
             ->assertStatus(200);

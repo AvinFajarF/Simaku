@@ -14,7 +14,7 @@ class TeacherPermissionsTest extends TestCase
     public function test_create_permission(): void
     {
 
-        $token = "5|s9WPOiUq69aSMS2I9yUO8XIVqaoqyxwNdQ8DrIvd";
+        $token = "1|kEnxZWzkEl37m1ngA0hlzaOVNKj1NbFq6Geciv9I";
 
         $response = $this->postJson(
             '/api/v1/teacher/permission/create',
