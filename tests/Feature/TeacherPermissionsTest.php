@@ -13,12 +13,26 @@ class TeacherPermissionsTest extends TestCase
      */
     public function test_create_permission(): void
     {
-        $response = $this->postJson('/api/v1/teacher/permission/create', ['name' => 'Sally']);
+        $response = $this->postJson(
+            '/api/v1/teacher/permission/create',
+            [
+                'name' => 'mr.test',
+                "date" => "2020-01-01",
+                "class" => "X",
+                "at_hour" => "10",
+                "type" => "dinas",
+                "room" => "1",
+                "task_instruction" => "test instruction",
+                "task_file" => "test file",
+                "permission_letter" => "test permission later"
+            ]
+        );
 
         $response
             ->assertStatus(201)
             ->assertJson([
-                'created' => true,
+                "status" => "success",
+                "message" => "managed to create permission"
             ]);
     }
 }

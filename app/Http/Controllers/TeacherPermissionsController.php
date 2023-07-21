@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TeacherPermissions;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,11 @@ class TeacherPermissionsController extends Controller
 
         try {
 
+            $now = Carbon::now();
+            $formattedNow = $now->format('d/m/Y h:i A');
+
             $validasi["teacher_id"] = Auth::user()->id;
+            $validasi["date"] = $formattedNow;
 
             $result = TeacherPermissions::create($validasi);
 
@@ -33,18 +38,18 @@ class TeacherPermissionsController extends Controller
                 return response()->json([
                     "status" => "success",
                     "message" => "managed to create permission"
-                ]);
+                ],201);
             } else {
                 return response()->json([
                     "status" => "failed",
                     "message" => "failed to create permission"
-                ]);
+                ],401);
             }
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "failed",
                 "message" => "failed to create permission"
-            ]);
+            ],401);
         }
     }
 
@@ -59,19 +64,7 @@ class TeacherPermissionsController extends Controller
         ]);
 
         try {
-
-
-
-
-
         } catch (\Throwable $th) {
-
-
-
         }
-
-
     }
 }
-
-
