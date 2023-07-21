@@ -18,4 +18,13 @@ class LoginTest extends TestCase
         $response
             ->assertStatus(200);
     }
+
+    public function test_login_fail(): void
+    {
+        $response = $this->postJson('/api/v1/login', ['username' => 'fail', "password" => "password"]);
+
+        $response
+            ->assertStatus(401);
+    }
+
 }

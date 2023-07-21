@@ -41,4 +41,35 @@ class TeacherPermissionsTest extends TestCase
                 "message" => "managed to create permission"
             ]);
     }
+
+
+    public function test_create_permission_fail(): void
+    {
+
+        $token = "1|kEnxZWzkEl37m1ngA0hlzaOVNKj1NbFq6Gec";
+
+        $response = $this->postJson(
+            '/api/v1/teacher/permission/create',
+            [
+                'name' => 'mr.test',
+                "date" => "2020-01-01",
+                "class" => "X",
+                "at_hour" => "10",
+                "type" => "dinas",
+                "room" => "1",
+                "task_instruction" => "test instruction",
+                "task_file" => "test file",
+                "permission_letter" => "test permission later"
+            ],
+            [
+                'Authorization' => 'Bearer '. $token
+            ]
+        );
+
+        $response
+            ->assertStatus(401)
+            ->assertJson([
+                "message" => "Unauthenticated."
+            ]);
+    }
 }
