@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TeacherPermissionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,14 @@ Route::prefix("/v1")->group(function() {
     Route::controller(AuthController::class)->group(function() {
         // router untuk login
         Route::post("/login", "login");
+    });
+
+    Route::controller(TeacherPermissionsController::class)->group(function() {
+
+        // create permission for teacher
+        Route::post("/teacher/permission/create", "CreateTeacherPermissions");
+
+
     });
 
 });
