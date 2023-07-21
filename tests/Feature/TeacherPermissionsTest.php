@@ -72,4 +72,27 @@ class TeacherPermissionsTest extends TestCase
                 "message" => "Unauthenticated."
             ]);
     }
+
+
+    public function test_create_permission_settings():void {
+        $token = "1|kEnxZWzkEl37m1ngA0hlzaOVNKj1NbFq6Geciv9I";
+
+        $response = $this->postJson("/api/v1/admin/permission/settings", [
+            "day" => "monday",
+            "class" => "XI",
+            "at_hour" => "11",
+        ],[
+            'Authorization' => 'Bearer '. $token
+        ]);
+
+        $response
+        ->assertStatus(201)
+        ->assertJson([
+            "status" => "success",
+            "message" => "managed to make teacher arrangements"
+        ]);
+
+    }
+
+
 }

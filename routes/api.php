@@ -36,6 +36,8 @@ Route::prefix("/v1")->group(function() {
 
             // create permission for teacher
             Route::post("/teacher/permission/create", "CreateTeacherPermissions")->middleware("teacher.auth");
+            // create setting for teacher permission
+            Route::post("/admin/permission/settings", "TeacherPermissionSettings")->middleware("admin.check");
         });
 
 

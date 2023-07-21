@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TeacherPermissions;
+use App\Models\TeacherPermissionSettings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,20 +45,18 @@ class TeacherPermissionsController extends Controller
                 return response()->json([
                     "status" => "failed",
                     "message" => "failed to create permission"
-                ], 401);
+                ], 400);
             }
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "failed",
-                "id" => Auth::user(),
                 "message" => "failed to create permission",
-                "error" => $th->getMessage()
-            ], 401);
+            ], 400);
         }
     }
 
 
-    public function teacherPermissionSettings(Request $request)
+    public function TeacherPermissionSettings(Request $request)
     {
 
         $validasi = $request->validate([
@@ -67,7 +66,25 @@ class TeacherPermissionsController extends Controller
         ]);
 
         try {
+
+            $result = TeacherPermissionSettings::create($validasi);
+
+            if ($result) {
+                return response()->json([
+                    "status" => "success",
+                    "message" => "managed to make teacher arrangements"
+                ], 201);
+            }else{
+                return response()->json([
+                    "status" => "failed",
+                    "message" => "failed to make teacher arrangements"
+                ], 400);
+            }
         } catch (\Throwable $th) {
+            return response()->json([
+                "status" => "failed",
+                "message" => "failed to make teacher arrangements"
+            ], 400);
         }
     }
 }
