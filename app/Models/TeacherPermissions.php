@@ -19,5 +19,6 @@ class TeacherPermissions extends Model
         "task_instruction",
         "task_file",
         "permission_letter",
+        "teacher_id",
     ];
 }

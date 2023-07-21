@@ -12,6 +12,8 @@ class TeacherPermissionsController extends Controller
 
     public function CreateTeacherPermissions(Request $request)
     {
+
+
         $validasi = $request->validate([
             "name" => "required|string",
             "date" => "required|string",
@@ -25,7 +27,6 @@ class TeacherPermissionsController extends Controller
         ]);
 
         try {
-
             $now = Carbon::now();
             $formattedNow = $now->format('d/m/Y h:i A');
 
@@ -38,18 +39,20 @@ class TeacherPermissionsController extends Controller
                 return response()->json([
                     "status" => "success",
                     "message" => "managed to create permission"
-                ],201);
+                ], 201);
             } else {
                 return response()->json([
                     "status" => "failed",
                     "message" => "failed to create permission"
-                ],401);
+                ], 401);
             }
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "failed",
-                "message" => "failed to create permission"
-            ],401);
+                "id" => Auth::user(),
+                "message" => "failed to create permission",
+                "error" => $th->getMessage()
+            ], 401);
         }
     }
 

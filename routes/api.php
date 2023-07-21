@@ -29,12 +29,17 @@ Route::prefix("/v1")->group(function() {
         Route::post("/login", "login");
     });
 
-    Route::controller(TeacherPermissionsController::class)->group(function() {
+    Route::middleware('auth:sanctum')->group(function() {
 
-        // create permission for teacher
-        Route::post("/teacher/permission/create", "CreateTeacherPermissions");
+
+        Route::controller(TeacherPermissionsController::class)->group(function() {
+
+            // create permission for teacher
+            Route::post("/teacher/permission/create", "CreateTeacherPermissions")->middleware("teacher.auth");
+        });
+
+
 
 
     });
-
 });
