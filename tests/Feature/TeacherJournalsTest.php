@@ -39,4 +39,35 @@ class TeacherJournalsTest extends TestCase
                 "message" => "managed to create Journal"
             ]);
     }
+
+
+    public function test_create_fail_journals(): void
+    {
+        $token = "1|kEnxZWzkEl37m1nghlzaOVNKj1NbFq6Geciv9I";
+
+        $response = $this->postJson(
+            '/api/v1/teacher/journals',
+            [
+                'name' => 'mr.test',
+                "date" => "2020-01-01",
+                "class" => "X",
+                "at_hour" => "10",
+                "subject" => "create journals",
+                "description" => "test description",
+                "student_note" => "test note",
+                "subject_id" => "1"
+            ],
+            [
+                'Authorization' => 'Bearer '. $token
+            ]
+        );
+
+        $response
+        ->assertStatus(401)
+        ->assertJson([
+            "message" => "Unauthenticated."
+        ]);
+    }
+
+
 }

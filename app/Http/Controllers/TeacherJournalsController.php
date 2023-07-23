@@ -50,13 +50,13 @@ class TeacherJournalsController extends Controller
                 return response()->json([
                     "status" => "success",
                     "message" => "failed to create Journal"
-                ], 201);
+                ], 400);
             }
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "success",
                 "message" => "failed to create Journal",
-            ], 201);
+            ], 400);
         }
     }
 }
