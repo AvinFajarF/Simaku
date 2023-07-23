@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TeacherJournalsController;
 use App\Http\Controllers\TeacherPermissionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,9 +36,15 @@ Route::prefix("/v1")->group(function() {
         Route::controller(TeacherPermissionsController::class)->group(function() {
 
             // create permission for teacher
-            Route::post("/teacher/permission/create", "CreateTeacherPermissions")->middleware("teacher.auth");
+            Route::post("/teacher/permission", "CreateTeacherPermissions")->middleware("teacher.auth");
             // create setting for teacher permission
             Route::post("/admin/permission/settings", "TeacherPermissionSettings")->middleware("admin.check");
+        });
+
+
+        Route::controller(TeacherJournalsController::class)->middleware("teacher.auth")->group(function() {
+            // create journals
+            Route::post("/teacher/journals", "CreateJournals");
         });
 
 

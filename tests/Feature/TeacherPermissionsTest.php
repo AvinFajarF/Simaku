@@ -17,7 +17,7 @@ class TeacherPermissionsTest extends TestCase
         $token = "1|kEnxZWzkEl37m1ngA0hlzaOVNKj1NbFq6Geciv9I";
 
         $response = $this->postJson(
-            '/api/v1/teacher/permission/create',
+            '/api/v1/teacher/permission',
             [
                 'name' => 'mr.test',
                 "date" => "2020-01-01",
@@ -49,7 +49,7 @@ class TeacherPermissionsTest extends TestCase
         $token = "1|kEnxZWzkEl37m1ngA0hlzaOVNKj1NbFq6Gec";
 
         $response = $this->postJson(
-            '/api/v1/teacher/permission/create',
+            '/api/v1/teacher/permission',
             [
                 'name' => 'mr.test',
                 "date" => "2020-01-01",
@@ -90,6 +90,25 @@ class TeacherPermissionsTest extends TestCase
         ->assertJson([
             "status" => "success",
             "message" => "managed to make teacher arrangements"
+        ]);
+
+    }
+
+    public function test_create_permission_settings_fail():void {
+        $token = "1|kEnxZWzkEl37m1ngA0hlzaOVNKj1NbFq6Ge";
+
+        $response = $this->postJson("/api/v1/admin/permission/settings", [
+            "day" => "monday",
+            "class" => "XI",
+            "at_hour" => "11",
+        ],[
+            'Authorization' => 'Bearer '. $token
+        ]);
+
+        $response
+        ->assertStatus(401)
+        ->assertJson([
+            "message" => "Unauthenticated."
         ]);
 
     }
