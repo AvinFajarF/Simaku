@@ -45,6 +45,8 @@ Route::prefix("/v1")->group(function() {
         Route::controller(TeacherJournalsController::class)->middleware("teacher.auth")->group(function() {
             // create journals
             Route::post("/teacher/journals", "CreateJournals");
+            // get all students by class
+            Route::get("/teacher/students", "GetStudentData");
         });
 
 
