@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActiveStudents;
 use App\Models\TeacherJournalActivities;
 use App\Models\TeacherJournals;
+use App\Models\Teachers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,9 @@ class TeacherJournalsController extends Controller
             $formattedNow = $now->format('d/m/Y h:i A');
 
             $validasi["date"] = $formattedNow;
-            $validasi["teacher_id"] = Auth::user()->id;
+
+            $TeacherId = Teachers::where("user_id", Auth::user()->id)->first();
+            $validasi["teacher_id"] = $TeacherId;
 
 
 
@@ -87,6 +90,17 @@ class TeacherJournalsController extends Controller
                 "data" => null,
             ], 400);
         }
+
+    }
+
+    public function CreateTeacherJournalSelections(Request $request) {
+
+        $validasi = $request->validate([
+            "name" => "required|string",
+            "status" => "required",
+            "teacher_journal_id" => "required",
+            "student_active_id" => "required",
+        ]);
 
     }
 
