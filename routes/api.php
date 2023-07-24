@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\TeacherJournalsController;
 use App\Http\Controllers\TeacherPermissionsController;
 use Illuminate\Http\Request;
@@ -21,19 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix("/v1")->group(function() {
+Route::prefix("/v1")->group(function () {
 
 
     // router untuk authenticated
-    Route::controller(AuthController::class)->group(function() {
+    Route::controller(AuthController::class)->group(function () {
         // router untuk login
         Route::post("/login", "login");
     });
 
-    Route::middleware('auth:sanctum')->group(function() {
+    Route::middleware('auth:sanctum')->group(function () {
 
 
-        Route::controller(TeacherPermissionsController::class)->group(function() {
+        Route::controller(TeacherPermissionsController::class)->group(function () {
 
             // create permission for teacher
             Route::post("/teacher/permission", "CreateTeacherPermissions")->middleware("teacher.auth");
@@ -42,17 +43,16 @@ Route::prefix("/v1")->group(function() {
         });
 
 
-        Route::controller(TeacherJournalsController::class)->middleware("teacher.auth")->group(function() {
+        Route::controller(TeacherJournalsController::class)->middleware("teacher.auth")->group(function () {
             // create journals
             Route::post("/teacher/journals", "CreateJournals");
-            // get all students by class
-            Route::get("/teacher/students", "GetStudentData");
             // create teacher journal selections
-            Route::post("/teacher/journals/selections", "CreateTeacherJournalSelections");
+            // Route::post("/teacher/journals/selections", "CreateTeacherJournalSelections");
         });
 
-
-
-
+        Route::controller(StudentsController::class)->middleware("student.auth")->group(function () {
+            // get all students by class
+            Route::get("/teacher/students", "GetStudentData");
+        });
     });
 });
