@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActiveStudents;
 use App\Models\TeacherJournalActivities;
 use App\Models\TeacherJournals;
+use App\Models\TeacherJournalSelections;
 use App\Models\Teachers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class TeacherJournalsController extends Controller
             $validasi["date"] = $formattedNow;
 
             $TeacherId = Teachers::where("user_id", Auth::user()->id)->first();
-            $validasi["teacher_id"] = $TeacherId;
+            $validasi["teacher_id"] = $TeacherId->id;
 
 
 
@@ -48,23 +49,25 @@ class TeacherJournalsController extends Controller
 
                 return response()->json([
                     "status" => "success",
-                    "message" => "managed to create Journal"
+                    "message" => "managed to create Journal",
+                    "data" => $result,
                 ], 201);
-            } else {
+            }
                 return response()->json([
-                    "status" => "success",
+                    "status" => "failed",
                     "message" => "failed to create Journal"
                 ], 400);
-            }
         } catch (\Throwable $th) {
             return response()->json([
-                "status" => "success",
+                "status" => "failed",
                 "message" => "failed to create Journal",
+                "error" => $th
             ], 400);
         }
     }
 
-    public function GetStudentData(Request $request) {
+    public function GetStudentData(Request $request)
+    {
 
         $validasi = $request->validate([
             "class" => "required",
@@ -73,12 +76,12 @@ class TeacherJournalsController extends Controller
         try {
             $result = ActiveStudents::with("student.users")->where("class", $validasi["class"])->get();
 
-            if ($result){
+            if ($result) {
                 return response()->json([
                     "status" => "success",
                     "data" => $result,
                 ], 200);
-            }else{
+            } else {
                 return response()->json([
                     "status" => "error",
                     "data" => null,
@@ -90,10 +93,10 @@ class TeacherJournalsController extends Controller
                 "data" => null,
             ], 400);
         }
-
     }
 
-    public function CreateTeacherJournalSelections(Request $request) {
+    public function CreateTeacherJournalSelections(Request $request)
+    {
 
         $validasi = $request->validate([
             "name" => "required|string",
@@ -102,6 +105,26 @@ class TeacherJournalsController extends Controller
             "student_active_id" => "required",
         ]);
 
-    }
+        try {
 
+            $result = TeacherJournalSelections::create($validasi);
+            if ($result) {
+                return response()->json([
+                    "status" => "success",
+                    "data" => $result,
+                ], 201);
+            } else {
+                return response()->json([
+                    "status" => "error",
+                    "data" => null,
+                ], 400);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => "error",
+                "data" => null,
+                "error" => $th
+            ], 400);
+        }
+    }
 }

@@ -47,6 +47,8 @@ Route::prefix("/v1")->group(function() {
             Route::post("/teacher/journals", "CreateJournals");
             // get all students by class
             Route::get("/teacher/students", "GetStudentData");
+            // create teacher journal selections
+            Route::post("/teacher/journals/selections", "CreateTeacherJournalSelections");
         });
 
 
