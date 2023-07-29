@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TeacherPermissions;
 use App\Models\TeacherPermissionSettings;
+use App\Models\Teachers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,6 @@ class TeacherPermissionsController extends Controller
 
 
         $validasi = $request->validate([
-            "name" => "required|string",
             "date" => "required|string",
             "class" => "required",
             "at_hour" => "required",
@@ -31,26 +31,40 @@ class TeacherPermissionsController extends Controller
             $now = Carbon::now();
             $formattedNow = $now->format('d/m/Y h:i A');
 
-            $validasi["teacher_id"] = Auth::user()->id;
+            $teacherId = Teachers::where("user_id", Auth::user()->id)->first();
+
+            $validasi["name"] = $teacherId->name;
+            $validasi["teacher_id"] = $teacherId->id;
             $validasi["date"] = $formattedNow;
 
-            $result = TeacherPermissions::create($validasi);
+            if ($request->file('task_file')) {
+                $extension = $request->file('task_file')->getClientOriginalExtension();
+                $newFileName = $teacherId->name . '-' . now()->timestamp . '.' . $extension;
 
-            if ($result) {
-                return response()->json([
-                    "status" => "success",
-                    "message" => "managed to create permission"
-                ], 201);
-            } else {
-                return response()->json([
-                    "status" => "failed",
-                    "message" => "failed to create permission"
-                ], 400);
+                $request->file('task_file')->storeAs('file', $newFileName);
+
+                if ($request->file('task_file')) {
+                    $request->file('task_file')->move(public_path('storage/file'), $newFileName);
+                    $validasi['task_file'] = $newFileName;
+                } else {
+                    $validasi['task_file'] = $newFileName;
+                }
+
             }
+
+
+            TeacherPermissions::create($validasi);
+
+
+            return response()->json([
+                "status" => "success",
+                "message" => "managed to create permission"
+            ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "failed",
                 "message" => "failed to create permission",
+                "error" => $th->getMessage(),
             ], 400);
         }
     }
@@ -67,19 +81,13 @@ class TeacherPermissionsController extends Controller
 
         try {
 
-            $result = TeacherPermissionSettings::create($validasi);
+            TeacherPermissionSettings::create($validasi);
 
-            if ($result) {
-                return response()->json([
-                    "status" => "success",
-                    "message" => "managed to make teacher arrangements"
-                ], 201);
-            }else{
-                return response()->json([
-                    "status" => "failed",
-                    "message" => "failed to make teacher arrangements"
-                ], 400);
-            }
+
+            return response()->json([
+                "status" => "success",
+                "message" => "managed to make teacher arrangements"
+            ], 201);
         } catch (\Throwable $th) {
             return response()->json([
                 "status" => "failed",
