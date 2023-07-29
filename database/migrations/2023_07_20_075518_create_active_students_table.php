@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string("class");
 
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete("CASCADE");
-            
+            $table->foreign('student_id')->references('id')->on('students');
+
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

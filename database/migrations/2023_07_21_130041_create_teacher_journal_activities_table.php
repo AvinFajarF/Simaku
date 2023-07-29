@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('teacher_journal_id');
-            $table->foreign('teacher_journal_id')->references('id')->on('teacher_journals')->onDelete("CASCADE");
+            $table->foreign('teacher_journal_id')->references('id')->on('teacher_journals');
 
             $table->unsignedBigInteger('teacher_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete("CASCADE");
+            $table->foreign('teacher_id')->references('id')->on('teachers');
 
 
 

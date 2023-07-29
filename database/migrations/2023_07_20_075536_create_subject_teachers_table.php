@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string("class");
 
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onDelete("CASCADE");
+            $table->foreign('student_id')->references('id')->on('students');
 
             $table->unsignedBigInteger('teacher_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete("CASCADE");
+            $table->foreign('teacher_id')->references('id')->on('teachers');
+
+            $table->softDeletes();
 
             $table->timestamps();
         });

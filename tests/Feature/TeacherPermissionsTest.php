@@ -80,7 +80,7 @@ class TeacherPermissionsTest extends TestCase
         $response = $this->postJson("/api/v1/admin/permission/settings", [
             "day" => "monday",
             "class" => "XI",
-            "at_hour" => "11",
+            "at_hour" => "11-12",
         ],[
             'Authorization' => 'Bearer '. $token
         ]);

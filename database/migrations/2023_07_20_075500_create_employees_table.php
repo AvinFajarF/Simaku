@@ -18,7 +18,9 @@ return new class extends Migration
             $table->enum("status", ["on", "off"]);
 
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete("CASCADE");
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->softDeletes();
 
             $table->timestamps();
         });
