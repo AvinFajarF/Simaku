@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\FrontController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StudentsAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(FrontController::class)->group(function() {
+Route::controller(DashboardController::class)->group(function() {
 
-    Route::get("/", "index")->name("home");
+    Route::get("/admin", "index")->name("admin");
+
+});
+
+Route::controller(StudentsAdminController::class)->group(function() {
+
+    Route::get("/admin/siswa", "index")->name("admin.siswa");
 
 });

@@ -49,25 +49,18 @@
         </thead>
         <tbody>
           <?php $count = 1; ?>
-          @foreach($siswa as $data)
           <tr>
             <td>
-              <?= $count ?>
             </td>
-            <td>{{ $data->nis}}</td>
-            <td>{{ $data->nama }}</td>
-            <td>{{ $data->kelas }}</td>
+            <td>okw</td>
+            <td>t</td>
+            <td>t</td>
             <td>
-              <a href="#modalEdit" data-toggle="modal"
-                onclick="$('#modalEdit #formEdit').attr('action', 'siswa/{{$data->id}}/update'); $('#modalEdit #formEdit #nis').attr('value', '{{$data->nis}}'); $('#modalEdit #formEdit #nama').attr('value', '{{$data->nama}}'); $('#modalEdit #formEdit #kelas').attr('value', '{{$data->kelas}}');"
-                class="btn btn-warning">Edit</a>
-              <a href="#modalDelete" data-toggle="modal"
-                onclick="$('#modalDelete #formDelete').attr('action', 'siswa/{{$data->id}}/destroy')"
-                class="btn btn-danger ml-2">Delete</a>
+              <a href="#modalEdit" data-toggle="modal" class="btn btn-warning">Edit</a>
+              <a href="#modalDelete" data-toggle="modal" class="btn btn-danger ml-2">Delete</a>
             </td>
           </tr>
-          <?php $count++; ?>
-          @endforeach
+          {{-- @endforeach   --}}
         </tbody>
       </table>
     </div>

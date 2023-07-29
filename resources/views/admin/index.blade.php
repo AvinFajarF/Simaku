@@ -15,7 +15,7 @@
                     <h4>Total Guru</h4>
                 </div>
                 <div class="card-body">
-                    {{ count($guru) }}
+                    {{-- {{ count($guru) }} --}}
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <h4>Total Siswa</h4>
                 </div>
                 <div class="card-body">
-                    {{ count($siswa) }}
+                    {{-- {{ count($siswa) }} --}}
                 </div>
             </div>
         </div>
@@ -96,8 +96,8 @@
         </div>
     </div>
 </div>
-@endsection
-@section('script')
+ @endsection
+{{-- @section('script')
 <script>
     // data from laravel
     const data = <?= $jurnal_guru_per_hari ?>;
@@ -134,7 +134,7 @@
 
         data_week.map((x, i) => {
             lastWeek.push(x[0]?.tanggal ? x[0]?.tanggal : '-');
-            
+
             siswaHadirWeek.push(0)
             siswaTidakHadirWeek.push(0)
 
@@ -147,7 +147,7 @@
             siswaHadirWeekXII.push(0)
             siswaTidakHadirWeekXII.push(0)
 
-            x.map((x) => {    
+            x.map((x) => {
                 const kelas = x.kelas.split(' / ');
 
                 siswaHadirWeek[i] += parseInt(x.siswa_hadir);
@@ -169,7 +169,7 @@
     }
 
     window.onload = setData();
-    
+
     // element chart
     const elDoughnutChart = document.getElementById('chart_day');
     const elBarChart = document.getElementById('chart_week');
@@ -177,7 +177,7 @@
     const elBarChartXI = document.getElementById('chart_weekXI');
     const elBarChartXII = document.getElementById('chart_weekXII');
 
-    
+
     // journal per day
     const journalDay = {
         labels: [
@@ -335,4 +335,4 @@
 
 </script>
 
-@endsection
+@endsection --}}
