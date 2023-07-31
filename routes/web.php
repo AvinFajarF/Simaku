@@ -24,5 +24,8 @@ Route::controller(DashboardController::class)->group(function() {
 Route::controller(StudentsAdminController::class)->group(function() {
 
     Route::get("/admin/siswa", "index")->name("admin.siswa");
+    Route::post("/admin/siswa", "create")->name("admin.siswa.create");
+    Route::post("/admin/siswa/{id}/update", "update")->name("admin.siswa.update");
+    Route::delete("/admin/siswa/{id}/delete", "destroy")->name("admin.siswa.delete");
 
 });

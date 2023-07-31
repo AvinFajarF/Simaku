@@ -15,6 +15,12 @@ class Students extends Model
 
     protected $table = 'students';
 
+    protected $fillable = [
+        "name",
+        "status",
+        "user_id"
+    ];
+
     public function users(): BelongsTo{
         return $this->belongsTo(User::class, "user_id", "id");
     }
