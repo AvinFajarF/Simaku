@@ -10,5 +10,10 @@ class Subjects extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = [
+        "code",
+        "name"
+    ];
+
     protected $dates = ['deleted_at'];
 }

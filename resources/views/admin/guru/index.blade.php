@@ -39,24 +39,25 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Nama</th>
+                        <th scope="col">Number</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $count = 1; ?>
-                    @foreach($guru as $data)
+                    @foreach($teachers as $data)
                     <tr>
                         <td><?= $count ?></td>
                         <td>{{ $data->user->username}}</td>
-                        <td>{{ $data->nama }}</td>
+                        <td>{{ $data->number }}</td>
+                        <td>{{ $data->status }}</td>
                         <td>
                             <a href="#modalEdit" data-toggle="modal"
-                                onclick="$('#modalEdit #formEdit').attr('action', 'guru/{{$data->id}}/update'); $('#modalEdit #formEdit #username').attr('value', '{{$data->user->username}}'); $('#modalEdit #formEdit #nama').attr('value', '{{$data->nama}}');"
+                                onclick="$('#modalEdit #formEdit').attr('action', '{{route('admin.teacher.update', $data->id)}}'); $('#modalEdit #formEdit #username').attr('value', '{{$data->user->username}}'); $('#modalEdit #formEdit #nama').attr('value', '{{$data->nama}}'); $('#modalEdit #formEdit #number').attr('value', '{{$data->number}}'); $('#modalEdit #formEdit #status').attr('value', '{{$data->status}}');"
                                 class="btn btn-warning">Edit</a>
-                            <a href="#modalDelete" data-toggle="modal"
-                                onclick="$('#modalDelete #formDelete').attr('action', 'guru/{{$data->id}}/destroy')"
-                                class="btn btn-danger ml-2">Delete</a>
+                                <a href="#modalDelete" data-toggle="modal" onclick="$('#modalDelete #formDelete').attr('action', '{{ route('admin.teacher.delete', $data->id) }}')" class="btn btn-danger ml-2">Delete</a>
+
                         </td>
                     </tr>
                     <?php $count++; ?>
@@ -82,23 +83,47 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/admin/guru/store" method="post">
+                <form action="{{route("admin.teacher.create")}}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" required class="form-control @error('username') is-invalid @enderror"
-                            id="username" name="username">
-                        @error('username')
+                        <label for="name">name</label>
+                        <input type="text" required class="form-control @error('name') is-invalid @enderror"
+                            id="name" name="name">
+                        @error('name')
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" required class="form-control @error('nama') is-invalid @enderror" id="nama"
-                            name="nama">
-                        @error('nama')
+                        <label for="number">Number</label>
+                        <input type="text" required class="form-control @error('number') is-invalid @enderror" id="number"
+                            name="number">
+                        @error('number')
+                        <div class="invalid-feedback">
+                            {{ $message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" class="form-control" autocomplete="off" name="tipe" required>
+                            <option>on</option>
+                            <option>off</option>
+                        </select>
+
+
+                        @error('status')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" required class="form-control @error('password') is-invalid @enderror" id="password"
+                            name="password">
+                        @error('password')
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
@@ -170,16 +195,43 @@
                         </div>
                         @enderror
                     </div>
+
                     <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" required class="form-control @error('nama') is-invalid @enderror" id="nama"
-                            name="nama" value="">
-                        @error('nama')
+                        <label for="number">Number</label>
+                        <input type="text" required class="form-control @error('number') is-invalid @enderror" id="number"
+                            name="number">
+                        @error('number')
                         <div class="invalid-feedback">
                             {{ $message}}
                         </div>
                         @enderror
                     </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" class="form-control" autocomplete="off" name="tipe" required>
+                            <option>on</option>
+                            <option>off</option>
+                        </select>
+
+
+                        @error('status')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="text" required class="form-control @error('password') is-invalid @enderror" id="password"
+                            name="password">
+                        @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message}}
+                        </div>
+                        @enderror
+                    </div>
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
@@ -201,7 +253,9 @@
                 </button>
             </div>
             <div class="modal-footer">
-                <form id="formDelete" action="" method="get">
+                <form id="formDelete" action="" method="POST">
+                    @method("DELETE")
+                    @csrf
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                     <button type="submit" class="btn btn-danger">Hapus</button>
                 </form>

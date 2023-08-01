@@ -38,18 +38,20 @@
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Nama</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <?php $count = 1; ?>
-          @foreach($mata_pelajaran as $data)
+          @foreach($subjects as $data)
           <tr>
             <td>
               <?= $count ?>
             </td>
-            <td>{{ $data->nama }}</td>
+            <td>{{ $data->code }}</td>
+            <td>{{ $data->name }}</td>
             <td>
               <a href="#modalEdit" data-toggle="modal"
                 onclick="$('#modalEdit #formEdit').attr('action', 'mata-pelajaran/{{$data->id}}/update'); $('#modalEdit #formEdit #nama').attr('value', '{{$data->nama}}');"
@@ -82,12 +84,21 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/admin/mata-pelajaran/store" method="post">
+        <form action="{{route("admin.subjects.create")}}" method="post">
           @csrf
           <div class="form-group">
-            <label for="nama">Nama</label>
-            <input type="text" required class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama">
-            @error('nama')
+            <label for="code">code</label>
+            <input type="text" required class="form-control @error('code') is-invalid @enderror" id="code" name="code">
+            @error('code')
+            <div class="invalid-feedback">
+              {{ $message}}
+            </div>
+            @enderror
+          </div>
+          <div class="form-group">
+            <label for="name">name</label>
+            <input type="text" required class="form-control @error('name') is-invalid @enderror" id="name" name="name">
+            @error('name')
             <div class="invalid-feedback">
               {{ $message}}
             </div>
