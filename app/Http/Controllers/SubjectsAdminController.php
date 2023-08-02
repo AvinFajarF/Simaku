@@ -24,4 +24,19 @@ class SubjectsAdminController extends Controller
         return redirect()->back();
     }
 
+    public function update($id, Request $request) {
+        $validasi = $request->validate([
+            "name" => "string"
+        ]);
+        $validasi["code"] = $request->code;
+
+        $SubjectFind = Subjects::findOrFail($id);
+        $SubjectFind->update(["name" => $validasi["name"], "code" => $validasi["code"]]);
+
+        return redirect()->back();
+    }
+
+
+    
+
 }

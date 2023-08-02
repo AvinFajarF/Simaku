@@ -44,5 +44,6 @@ Route::controller(TeacherAdminController::class)->group(function() {
 Route::controller(SubjectsAdminController::class)->group(function() {
     Route::post("/admin/subjects", "create")->name("admin.subjects.create");
     Route::get("/admin/subjects", "index")->name("admin.subjects");
+    Route::post("/admin/subjects/{id}/update", "update")->name("admin.subjects.update");
 });
 
