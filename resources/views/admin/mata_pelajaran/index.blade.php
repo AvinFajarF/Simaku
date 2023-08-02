@@ -57,7 +57,7 @@
                 onclick="$('#modalEdit #formEdit').attr('action', '{{route('admin.subjects.update', $data->id)}}'); $('#modalEdit #formEdit #name').attr('value', '{{$data->name}}'); $('#modalEdit #formEdit #code').attr('value', '{{$data->code}}');"
                 class="btn btn-warning">Edit</a>
               <a href="#modalDelete" data-toggle="modal"
-                onclick="$('#modalDelete #formDelete').attr('action', 'mata-pelajaran/{{$data->id}}/destroy')"
+                onclick="$('#modalDelete #formDelete').attr('action', '{{route('admin.subjects.delete', $data->id)}}')"
                 class="btn btn-danger ml-2">Delete</a>
             </td>
           </tr>
@@ -203,7 +203,9 @@
         </button>
       </div>
       <div class="modal-footer">
-        <form id="formDelete" action="" method="get">
+        <form id="formDelete" action="" method="POST">
+            @csrf
+            @method("DELETE")
           <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Tidak</button>
           <button type="submit" class="btn btn-danger">Hapus</button>
         </form>

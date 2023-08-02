@@ -37,6 +37,14 @@ class SubjectsAdminController extends Controller
     }
 
 
-    
+    public function destroy($id){
+        $SubjectFind = Subjects::findOrFail($id);
+        $SubjectFind->delete();
+
+        return redirect()->back();
+    }
+
+
+
 
 }

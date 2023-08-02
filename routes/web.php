@@ -45,5 +45,6 @@ Route::controller(SubjectsAdminController::class)->group(function() {
     Route::post("/admin/subjects", "create")->name("admin.subjects.create");
     Route::get("/admin/subjects", "index")->name("admin.subjects");
     Route::post("/admin/subjects/{id}/update", "update")->name("admin.subjects.update");
+    Route::delete("/admin/subjects/{id}/delete", "destroy")->name("admin.subjects.delete");
 });
 
