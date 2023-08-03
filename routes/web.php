@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentsAdminController;
 use App\Http\Controllers\SubjectsAdminController;
+use App\Http\Controllers\SubjectTeachersAdminController;
 use App\Http\Controllers\TeacherAdminController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,9 +43,29 @@ Route::controller(TeacherAdminController::class)->group(function() {
 
 
 Route::controller(SubjectsAdminController::class)->group(function() {
-    Route::post("/admin/subjects", "create")->name("admin.subjects.create");
     Route::get("/admin/subjects", "index")->name("admin.subjects");
+    Route::post("/admin/subjects", "create")->name("admin.subjects.create");
     Route::post("/admin/subjects/{id}/update", "update")->name("admin.subjects.update");
     Route::delete("/admin/subjects/{id}/delete", "destroy")->name("admin.subjects.delete");
 });
+
+Route::controller(SubjectTeachersAdminController::class)->group(function() {
+    Route::get("/admin/subjects/teacher", "index")->name("admin.subjects.teacher");
+    Route::post("/admin/subjects/teacher", "create")->name("admin.subjects.teacher.create");
+    Route::post("/admin/subjects/teacher/{id}/update", "update")->name("admin.subjects.teacher.update");
+    Route::delete("/admin/subjects/teacher/{id}/delete", "destroy")->name("admin.subjects.teacher.destroy");
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 

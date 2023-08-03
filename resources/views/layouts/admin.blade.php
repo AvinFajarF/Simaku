@@ -51,14 +51,20 @@
                             <i class="fas fa-bookmark"></i>
                             <span>Refleksi Guru</span></a></li>
                     <li class="menu-header">Tambahan</li>
-                    <li class="@yield('mata_pelajaran')"><a href="{{route("admin.subjects")}}" class="nav-link"><i class="fas fa-book"></i>
+                    <li class="@yield('mata_pelajaran')"><a href="{{ route('admin.subjects') }}" class="nav-link"><i
+                                class="fas fa-book"></i>
                             <span>Mata Pelajaran</span></a></li>
                     <li class="@yield('unit_kerja')"><a class="nav-link"><i class="fas fa-cog"></i>
                             <span>Unit Kerja</span></a></li>
-                    <li class="@yield('siswa')"><a href="{{route("admin.siswa")}}" class="nav-link"><i class="fas fa-users"></i>
+                    <li class="@yield('siswa')"><a href="{{ route('admin.siswa') }}" class="nav-link"><i
+                                class="fas fa-users"></i>
                             <span>Siswa</span></a></li>
-                    <li class="@yield('guru')"><a href="{{route("admin.teacher")}}" class="nav-link"><i class="fas fa-users"></i>
+                    <li class="@yield('guru')"><a href="{{ route('admin.teacher') }}" class="nav-link"><i
+                                class="fas fa-users"></i>
                             <span>Guru</span></a></li>
+                    <li class="@yield('guru_mata_pelajaran')"><a class="nav-link" href="{{ route("admin.subjects.teacher") }}"><i
+                                class="fas fa-book"></i>
+                            <span>Guru Mata Pelajaran</span></a></li>
                     <li class="@yield('karyawan')"><a class="nav-link"><i class="fas fa-users"></i>
                             <span>Karyawan</span></a></li>
                 </ul>
