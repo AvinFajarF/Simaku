@@ -8,14 +8,14 @@
     <div class="card-header row">
         <div class="col-12 col-sm-6 p-0 my-1">
             <div class="d-flex align-items-start flex-column">
-                <form action="{{ route('admin.jurnal_guru') }}" method="get" class="d-flex">
-                    <input type="text" class="form-control datepicker" name="search1" autocomplete="off"
-                        value="{{ $input1}}">
+                <form {{route("admin.journal.teacher")}}  method="get" class="d-flex">
+                    <input type="text" class="form-control datepicker" name="start_date" autocomplete="off"
+                       >
                     <div class=" mx-2">
                         <h5>-</h5>
                     </div>
-                    <input type="text" class="form-control datepicker" name="search2" autocomplete="off"
-                        value="{{ $input2}}">
+                    <input type="text" class="form-control datepicker" name="end_date" autocomplete="off"
+                        >
                     <div class="mx-2">
                         <button class="btn btn-primary ">Cari</button>
                     </div>
@@ -25,7 +25,7 @@
         <div class="col-12 col-sm-6 p-0 my-1">
             <div class="d-flex align-items-end flex-column">
                 <div class="d-flex ">
-                    <a href="{{ route('admin.jurnal_guru') }}" class="btn btn-warning px-2">
+                    <a class="btn btn-warning px-2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="28" fill="currentColor"
                             class="bi bi-arrow-repeat m-auto text-white" viewBox="0 0 16 16">
                             <path
@@ -34,11 +34,11 @@
                                 d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
                         </svg>
                     </a>
-                    @if($input1 !== null || $input2 !== null)
+                    {{-- @if($input1 !== null || $input2 !== null)
                     <div class="mx-2">
-                        <a href="{{ route('admin.jurnal_guru.export') }}" class="btn btn-success">Export</a>
+                        <a href="{{ route('admin.jur   nal_guru.export') }}" class="btn btn-success">Export</a>
                     </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         </div>
@@ -55,11 +55,11 @@
                 </thead>
                 <tbody>
                     <?php $count = 1; ?>
-                    @foreach($jurnal_guru as $data)
+                    @foreach($data as $result)
                     <tr>
                         <th scope="row">{{ $count }}</th>
-                        <td>{{ $data->tanggal }}</td>
-                        <td>{{ $data->jumlah }}</td>
+                        <td>{{ $result->created_at->format("Y:m:d") }}</td>
+                        <td>{{ $result->count() }}</td>
                     </tr>
                     <?php $count++ ?>
                     @endforeach

@@ -15,7 +15,7 @@
                     <h4>Total Guru</h4>
                 </div>
                 <div class="card-body">
-                    {{-- {{ count($guru) }} --}}
+                    {{$teacherCount}}
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <h4>Total Siswa</h4>
                 </div>
                 <div class="card-body">
-                    {{-- {{ count($siswa) }} --}}
+                    {{$studentsCount}}
                 </div>
             </div>
         </div>
@@ -97,11 +97,12 @@
     </div>
 </div>
  @endsection
-{{-- @section('script')
+@section('script')
 <script>
     // data from laravel
     const data = <?= $jurnal_guru_per_hari ?>;
     const data_week = <?= $jurnal_guru_per_minggu ?>;
+    console.log(data);
 
     // siswa data for today
     let siswaHadirDay = 0;
@@ -335,4 +336,4 @@
 
 </script>
 
-@endsection --}}
+@endsection

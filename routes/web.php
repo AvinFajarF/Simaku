@@ -5,6 +5,8 @@ use App\Http\Controllers\StudentsAdminController;
 use App\Http\Controllers\SubjectsAdminController;
 use App\Http\Controllers\SubjectTeachersAdminController;
 use App\Http\Controllers\TeacherAdminController;
+use App\Http\Controllers\TeacherJournalsAdminController;
+use App\Http\Controllers\WorkUnitsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(DashboardController::class)->group(function() {
-
     Route::get("/admin", "index")->name("admin");
-
 });
 
 Route::controller(StudentsAdminController::class)->group(function() {
@@ -57,11 +57,18 @@ Route::controller(SubjectTeachersAdminController::class)->group(function() {
 });
 
 
+Route::controller(WorkUnitsController::class)->group(function() {
+    Route::get("/admin/work/unit", "index")->name("admin.work.unit");
+    Route::post("/admin/work/unit", "create")->name("admin.work.unit.create");
+    Route::post("/admin/work/unit/{id}/update", "update")->name("admin.work.unit.update");
+    Route::delete("/admin/work/unit/{id}/delete", "destroy")->name("admin.work.unit.destroy");
+});
 
 
 
-
-
+Route::controller(TeacherJournalsAdminController::class)->group(function() {
+    Route::get("/admin/journal/teacher", "index")->name("admin.journal.teacher");
+});
 
 
 

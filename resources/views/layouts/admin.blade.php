@@ -33,11 +33,11 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="menu-header">Dashboard</li>
-                    <li class="@yield('dashboard')"><a class="nav-link"><i class="fas fa-home"></i>
+                    <li class="@yield('dashboard')"><a href="/admin" class="nav-link"><i class="fas fa-home"></i>
                             <span>Dashboard</span></a></li>
 
                     <li class="menu-header">MENU</li>
-                    <li class="@yield('jurnal_guru')"><a class="nav-link">
+                    <li class="@yield('jurnal_guru')"><a href="{{route("admin.journal.teacher")}}" class="nav-link">
                             <i class="fas fa-book"></i>
                             <span>Jurnal Guru</span></a></li>
                     <li class="@yield('jurnal_karyawan')"><a class="nav-link">
@@ -54,7 +54,7 @@
                     <li class="@yield('mata_pelajaran')"><a href="{{ route('admin.subjects') }}" class="nav-link"><i
                                 class="fas fa-book"></i>
                             <span>Mata Pelajaran</span></a></li>
-                    <li class="@yield('unit_kerja')"><a class="nav-link"><i class="fas fa-cog"></i>
+                    <li class="@yield('unit_kerja')"><a href="{{route("admin.work.unit")}}" class="nav-link"><i class="fas fa-cog"></i>
                             <span>Unit Kerja</span></a></li>
                     <li class="@yield('siswa')"><a href="{{ route('admin.siswa') }}" class="nav-link"><i
                                 class="fas fa-users"></i>
